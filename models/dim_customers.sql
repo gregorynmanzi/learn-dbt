@@ -1,27 +1,16 @@
-{{ config (
-    materialized="table"
-)}}
+{{ config(
+    materialized="table")
+}}
 
 with customers as (
 
-    select
-        id as customer_id,
-        first_name,
-        last_name
-
-    from DEV.SANDBOX_DBT_RAW_JAFFLE_SHOP.customers
+    select * from {{ ref('stg_customers')}}
 
 ),
 
 orders as (
 
-    select
-        id as order_id,
-        user_id as customer_id,
-        order_date,
-        status
-
-    from DEV.SANDBOX_DBT_RAW_JAFFLE_SHOP.orders
+    select * from {{ ref('stg_orders') }}
 
 ),
 
